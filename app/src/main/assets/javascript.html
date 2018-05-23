@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script>
+        // Android需要调用的方法
+        function callJS(){
+            alert("Android调用了JS的callJS()方法");
+        }
+        function showMsgInAndroid() {
+            bridge.showMsg("Js调用Android的方法");
+        }
+    </script>
+</head>
+<body>
+<span>测试Android和Js互调</span><br>
+<button id="test" onclick="showMsgInAndroid()" >Js调用Android的方法</button>
+</body>
+</html>

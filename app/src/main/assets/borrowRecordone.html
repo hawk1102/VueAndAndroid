@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <meta name = "format-detection" content = "telephone=no">
+    <title>借款记录</title>
+    <!--<script src="../base/lib/flexible.js" type="text/javascript" charset="utf-8"></script>-->
+    <!--<script src="../base/lib/flexible_css.js" type="text/javascript" charset="utf-8"></script>-->
+    <!--<link rel="stylesheet" type="text/css" href="../base/css/normalize.css"/>-->
+    <!--<link rel="stylesheet" type="text/css" href="../base/css/common.css"/>-->
+    <!--<link rel="stylesheet" type="text/css" href="../css/borrowRecord.css"/>-->
+  </head>
+  <body style="background-color: #fff;">
+    <div id="record">
+      <ul>
+        <li class="flexBox flexAlignCenter flexBetween" v-for="item in borrowRecordList">
+          <div class="money">
+            <span class="val">¥{{item.money}}</span>
+            <p class="text">借款金额</p>
+          </div>
+          <div class="status">
+            <span class="val overtime">{{item.loanStatus}}</span>
+            <p class="text">{{item.createDate}}</p>
+          </div>
+        </li>
+      </ul>
+      <ul v-if="borrowRecordList ==''">
+        <div class="no-data">
+          <!-- <img src="../img/icon_nozd@2x.png"> -->
+          <p>sdlsdflksdglksdglksglk~</p>
+        </div>
+      </ul>
+      <p id="ht" @click="get" style="font-size: 20px;">23235</p>
+    </div>
+  </body>
+  <script src="./jquery-2.1.4.min.js" type="text/javascript" charset="utf-8"></script>
+  <script src="./common.js" type="text/javascript" charset="utf-8"></script>
+  <script src="./vue.js" type="text/javascript" charset="utf-8"></script>
+  <script>
+    var borrowRecord = new Vue({
+      el:'#record',
+      data:{
+        borrowRecordList:[],
+        token:''
+      },
+      created: function() {
+          window.jsGetMessageFromNative =this.jsGetMessageFromNative;
+        var that =this;
+        // that.connectnative();
+      },
+      methods:{
+          get:function () {
+
+              var that = this;
+              that.connectnative();
+          },
+          jsGetMessageFromNative:function(dataStr) {
+          $.dialogToast(dataStr);
+
+          document.querySelector('#ht').innerText=dataStr;
+        },
+
+        connectnative:function() {
+          var that = this;
+          // var loadingart=$.dialogLoading();
+          if(!$.isiOSAndAndroid()) {
+            that.jsGetMessageFromNative(12321);
+            document.querySelector('#ht').innerText=that.jsGetMessageFromNative;
+            // $.dialogToast(that.jsGetMessageFromNative);
+            
+            var out = cashloan.jsSendMessageToNative("network","{'url':'/weibofenqi/authorizationCredit/getLoanRecord'}");
+            // var data = jsGetMessageFromNative();
+            // document.querySelector('#ht').innerText=data;
+            // var out=cashloan.jsSendMessageToNative('getToken');
+            // var out = 'FQSC_LOGIN_0e06432e-808c-49dd-98e4-96e6fd6443bc';
+            // var param = {
+            //   appId: 'youjieloan'
+            // };
+            // $.requestAjax($.setRequsetUrl($.requestUrl.loanRecord),param,out,function(response) {
+            //   if(response.code == '00000000') {
+            //     loadingart.remove();
+            //     // document.querySelector('#ht').innerText=data;
+            //     if (response.data == null) {
+            //       that.borrowRecordList = '';
+            //     } else {
+            //       that.borrowRecordList = response.data;                  
+            //     }
+            //   } else {
+            //     $.dialogToast(response.msg);
+            //     loadingart.remove();
+            //     return;
+            //   }
+            // },function(error) {
+            //   loadingart.remove();
+            //   $.dialogToast('服务器开小差');
+            // });
+            // var dataList = JSON.parse(out);
+            // $.dialogToast(data);
+            // that.borrowRecordList = dataList.data;
+            // document.querySelector('#ht').innerText=data;
+            
+          } else {
+
+          }
+        }
+      }
+    });
+    // function setupWKWebViewJavascriptBridge(callback){
+    //     if(window.WKWebViewJavascriptBridge) {
+    //       return callback(WKWebViewJavascriptBridge);
+    //     }
+    //     if(window.WKWVJBCallbacks) {
+    //       return window.WKWVJBCallbacks.push(callback);
+    //     }
+    //     window.WKWVJBCallbacks = [callback];
+    //     window.webkit.messageHandlers.nativeHandler.postMessage(null);
+    //   }
+    
+    // this.setupWKWebViewJavascriptBridge((bridge)=>{
+    //   bridge.callHandler('jsSendMessageToNative', {
+    //     'eventValue': 'getToken'
+    //     //  contact   exit
+    //   }, function(response) {
+    //     //log('JS got response', response, 'js')
+    //     //({message: '发送成功'});
+    //     $.dialogToast('999');
+    //     document.querySelector('#ht').innerText=response;
+
+    //   }); 
+    // });
+
+    function jsGetMessageFromNative(dataStr) {
+        $.dialogToast(dataStr);
+        document.querySelector('#ht').innerText=dataStr;
+    }
+  </script>
+</html>
+<style type="text/css">
+  #record .no-data{
+    padding-top: 1.17rem;
+    text-align: center;
+
+  }
+  #record .no-data img{
+    width: 4.61rem;
+    height: 3.58rem;
+    margin-bottom: 0.8rem;
+  }
+  #record .no-data p{
+    text-align: center;
+    font-size: 0.5rem;
+    color: #939393;
+  }
+</style>
