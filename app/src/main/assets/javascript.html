@@ -11,10 +11,17 @@
         function showMsgInAndroid() {
             bridge.showMsg("Js调用Android的方法");
         }
+
+          function getMessageAndroid() {
+            var s=bridge.getMessage("hello");
+             alert(s);
+        }
     </script>
 </head>
 <body>
 <span>测试Android和Js互调</span><br>
-<button id="test" onclick="showMsgInAndroid()" >Js调用Android的方法</button>
+<button id="test" onclick="showMsgInAndroid()" >Js调用Android的方法</button><br>
+<p>测试Js回调参数</p>
+<button  onclick="getMessageAndroid()" >Js回调Android的参数</button><br>
 </body>
 </html>

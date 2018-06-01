@@ -24,4 +24,8 @@ public class MyBridge {
     public void toastMessage(String message) {
         Log.i("toastMessage" , "传递过来的值是： "+message);
     }
+    @JavascriptInterface
+    public String getMessage(String s){
+        return s+"world !";
+    }
 }

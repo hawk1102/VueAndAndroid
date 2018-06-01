@@ -32,14 +32,13 @@ public class MainActivity extends AppCompatActivity {
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // webView.loadUrl("javascript:callJS()");
+                 webView.loadUrl("javascript:callJS()");
                 Person person = new Person();
                 person.setName("zitan");
                 person.setAge(27);
                 person.setBoy(true);
                 String s = new Gson().toJson(person);
 //                webView.loadUrl("javascript:jsGetMessageFromNative(" + 123 + ")");
-                webView.loadUrl("javascript:callJS()");
 
             }
         });
